@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ run_name or '고객 이탈 리스크 분석 리포트' }}</title>
+</head>
+<body>
+  <div class="report-root">
+
+    <section class="page cover-page">
+      <div class="cover-top">
+        <div class="brand-chip">PET COMMERCE ANALYTICS</div>
+        <div class="user-meta">{{ user_name }}</div>
+      </div>
+
+      <div class="cover-hero">
+        <div class="eyebrow">반려동물 커머스 이탈 분석</div>
+        <h1>{{ run_name }}</h1>
+        <p>{{ title }}</p>
+      </div>
+
+      <div class="kpi-grid cover-grid">
+        <div class="kpi-card">
+          <div class="label">전체 고객 수</div>
+          <div class="value">{{ summary.total_customers }}</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">고위험 비율</div>
+          <div class="value">{{ summary.high_ratio }}</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">평균 위험 점수</div>
+          <div class="value">{{ summary.avg_risk }}</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">예상 매출 이탈</div>
+          <div class="value">{{ summary.expected_loss }}</div>
+        </div>
+      </div>
+
+      <div class="summary-box">
+        <div class="summary-title">Executive Summary</div>
+        <ul>
+          {% for line in summary_lines %}
+          <li>{{ line }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+
+    {% if sections.overview %}
+    <section class="page page-break">
+      <div class="section-block">
+        <div class="section-head">
+          <div class="section-no">01</div>
+          <div>
+            <h2>Executive Summary</h2>
+            <p>핵심 KPI, 음수 매출 처리 방식, 우선 대응 카테고리를 요약합니다.</p>
+          </div>
+        </div>
+
+        <div class="hero-alert">
+          <div class="hero-alert-title">우선 대응 필요</div>
+          <div class="hero-alert-desc">
+            고위험 고객은 <b>{{ summary.high_count }}명</b>이며, 평균 churn_prob는 <b>{{ summary.avg_churn_prob }}</b>입니다.
+            현재 기준 예상 매출 이탈은 <b>{{ summary.expected_loss }}</b> 수준입니다.
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <div class="card-title">핵심 지표</div>
+            <div class="metric-list">
+              <div><span>전체 고객 수</span><b>{{ summary.total_customers }}</b></div>
+              <div><span>고위험 고객 비율</span><b>{{ summary.high_ratio }}</b></div>
+              <div><span>평균 위험 점수</span><b>{{ summary.avg_risk }}</b></div>
+              <div><span>환불률</span><b>{{ summary.refund_rate }}</b></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">음수 매출 처리 방식</div>
+            <div style="font-weight:900; margin-bottom:6px;">{{ negative_sales_mode_label }}</div>
+            <div style="color: rgba(0,0,0,0.68); line-height:1.65;">
+              {{ negative_sales_mode_desc }}
+            </div>
+          </div>
+        </div>
+
+        {% if overview_bar_rows %}
+        <div class="card mt-12">
+          <div class="card-title">카테고리 위험 우선순위</div>
+          <div class="bar-list">
+            {% for row in overview_bar_rows %}
+            <div class="bar-row">
+              <div class="bar-label">{{ row.label }}</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: {{ row.width_pct }}%;"></div>
+              </div>
+              <div class="bar-value">{{ row.value_display }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if sections.segment %}
+    <section class="page page-break">
+        <div class="section-block">
+          <div class="section-head">
+            <div class="section-no">02</div>
+            <div>
+              <h2>세그먼트</h2>
+              <p>세그먼트 구성 비율과 평균 위험도를 요약합니다.</p>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="card">
+              <div class="card-title">세그먼트 구성 비율</div>
+              <div class="bar-list">
+                {% for row in segment_comp_rows %}
+                <div class="bar-row">
+                  <div class="bar-label">{{ row.label }}</div>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width: {{ row.width_pct }}%;"></div>
+                  </div>
+                  <div class="bar-value">{{ row.value_display }}</div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">세그먼트별 평균 위험도</div>
+              <div class="bar-list">
+                {% for row in segment_risk_rows %}
+                <div class="bar-row">
+                  <div class="bar-label">{{ row.label }}</div>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width: {{ row.width_pct }}%;"></div>
+                  </div>
+                  <div class="bar-value">{{ row.value_display }}</div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          {% if segment_rows %}
+          <div class="card mt-12">
+            <div class="card-title">세그먼트 요약표</div>
+            <div class="table-wrap">
+              <table class="table compact-table">
+                <thead>
+                  <tr>
+                    {% for col in segment_rows[0].keys() %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for row in segment_rows %}
+                  <tr>
+                    {% for col in segment_rows[0].keys() %}
+                    <td>{{ row[col] }}</td>
+                    {% endfor %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if sections.category %}
+    <section class="page page-break">
+        <div class="section-block">
+          <div class="section-head">
+            <div class="section-no">03</div>
+            <div>
+              <h2>카테고리</h2>
+              <p>카테고리별 위험 우선순위와 상세 지표를 함께 제공합니다.</p>
+            </div>
+          </div>
+
+          {% if category_bar_rows %}
+          <div class="card">
+            <div class="card-title">카테고리 위험 우선순위</div>
+            <div class="bar-list">
+              {% for row in category_bar_rows %}
+              <div class="bar-row">
+                <div class="bar-label">{{ row.label }}</div>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width: {{ row.width_pct }}%;"></div>
+                </div>
+                <div class="bar-value">{{ row.value_display }}</div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          {% if category_rows %}
+          <div class="card mt-12">
+            <div class="card-title">카테고리 위험 상세표</div>
+            <div class="table-wrap">
+              <table class="table compact-table balance-4">
+                <colgroup>
+                  {% for _ in category_rows[0].keys() %}<col>{% endfor %}
+                </colgroup>
+                <thead>
+                  <tr>
+                    {% for col in category_rows[0].keys() %}
+                    <th>{{ col }}</th>
+                    {% endfor %}
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for row in category_rows %}
+                  <tr>
+                    {% for col in category_rows[0].keys() %}
+                    <td>{{ row[col] }}</td>
+                    {% endfor %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          {% else %}
+          <div class="card">
+            <div class="card-title">카테고리 데이터</div>
+            <div style="color: rgba(0,0,0,0.62);">카테고리 데이터가 없습니다.</div>
+          </div>
+          {% endif %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if sections.ml %}
+    <section class="page page-break">
+      <div class="section-block">
+        <div class="section-head">
+          <div class="section-no">04</div>
+          <div>
+            <h2>ML 이탈예측</h2>
+            <p>평균 이탈확률, 고위험 고객 수, 분포 요약, 상위 고객 리스트를 제공합니다.</p>
+          </div>
+        </div>
+
+        <div class="kpi-grid two-grid">
+          <div class="kpi-card">
+            <div class="label">평균 이탈확률</div>
+            <div class="value">{{ summary.avg_churn_prob }}</div>
+          </div>
+          <div class="kpi-card">
+            <div class="label">ML 고위험 고객</div>
+            <div class="value">{{ summary.high_risk_count }}</div>
+          </div>
+        </div>
+
+        {% if ml_rows %}
+        <div class="card mt-12">
+          <div class="card-title">상위 이탈위험 고객</div>
+          <div class="table-wrap">
+            <table class="table compact-table ml-table">
+              <colgroup>
+                <col style="width: 8%;">
+                <col style="width: 11%;">
+                <col style="width: 12%;">
+                <col style="width: 8%;">
+                <col style="width: 14%;">
+                <col style="width: 14%;">
+                <col style="width: 21%;">
+                <col style="width: 12%;">
+              </colgroup>
+              <thead>
+                <tr>
+                  {% for col in ml_rows[0].keys() %}
+                  <th class="{% if col in ['사유', '추천액션'] %}ml-long{% endif %}">{{ col }}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in ml_rows %}
+                <tr>
+                  {% for col in ml_rows[0].keys() %}
+                  <td class="{% if col in ['사유', '추천액션'] %}ml-long{% endif %}{% if col in ['이탈확률', '휴면일수', '미구매일수', '평균주기', '주기배수'] %} ml-num{% endif %}">{{ row[col] }}</td>
+                  {% endfor %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="ml-download-note">전체 데이터는 ML 분석 탭에서 다운로드할 수 있습니다.</div>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if sections.refund or sections.inventory %}
+    <section class="page page-break compact-page">
+        <div class="section-block">
+          {% if sections.refund %}
+          <div class="merged-subsection">
+            <div class="section-head">
+              <div class="section-no">05</div>
+              <div>
+                <h2>환불</h2>
+                <p>음수 매출 처리 정책과 카테고리 환불 집계를 제공합니다.</p>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">환불 요약</div>
+              <div class="metric-list">
+                <div><span>환불률</span><b>{{ summary.refund_rate }}</b></div>
+                <div><span>음수 매출 처리 방식</span><b>{{ negative_sales_mode_label }}</b></div>
+              </div>
+            </div>
+
+            {% if refund_rows %}
+            <div class="card mt-12">
+              <div class="card-title">카테고리 환불 집계</div>
+              <div class="table-wrap">
+                <table class="table compact-table balance-5">
+                  <colgroup>
+                    {% for _ in refund_rows[0].keys() %}<col>{% endfor %}
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      {% for col in refund_rows[0].keys() %}
+                      <th>{{ col }}</th>
+                      {% endfor %}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for row in refund_rows %}
+                    <tr>
+                      {% for col in refund_rows[0].keys() %}
+                      <td>{{ row[col] }}</td>
+                      {% endfor %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          {% if sections.inventory %}
+          <div class="merged-subsection{% if sections.refund %} mt-12{% endif %}">
+            <div class="section-head">
+              <div class="section-no">06</div>
+              <div>
+                <h2>재고 / 매출전망</h2>
+                <p>현재 추세 기준 전망치와 재고 권장안을 함께 제공합니다.</p>
+              </div>
+            </div>
+
+            <div class="forecast-card">
+              <div class="forecast-label">{{ summary.forecast_label }}</div>
+              <div class="forecast-value">{{ summary.forecast_value }}</div>
+              <div class="forecast-desc">
+                현재 분석 기준 단순 추정치이며, 고위험 고객과 고가치 고객 유지율에 따라 실제 결과는 달라질 수 있습니다.
+              </div>
+            </div>
+
+            {% if inventory_rows %}
+            <div class="card mt-12">
+              <div class="card-title">재고 권장안</div>
+              <div class="table-wrap">
+                <table class="table compact-table inventory-table">
+                  <colgroup>
+                    {% for _ in inventory_rows[0].keys() %}<col>{% endfor %}
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      {% for col in inventory_rows[0].keys() %}
+                      <th>{{ col }}</th>
+                      {% endfor %}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for row in inventory_rows %}
+                    <tr>
+                      {% for col in inventory_rows[0].keys() %}
+                      <td>{{ row[col] }}</td>
+                      {% endfor %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+    </section>
+    {% endif %}
+
+  </div>
+</body>
+</html>

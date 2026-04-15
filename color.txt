@@ -1,0 +1,12 @@
+--primary: #4F46E5;
+--primary-dark: #4338CA;
+
+--bg-main: #F5F7FB;
+--bg-sidebar: #F3F4F6;
+--bg-card: #FFFFFF;
+
+--text-main: #111827;
+
+--success: rgba(34,197,94,1);
+--warning: rgba(245,158,11,1);
+--danger: rgba(239,68,68,1);

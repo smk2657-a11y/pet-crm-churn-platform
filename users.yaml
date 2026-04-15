@@ -1,0 +1,24 @@
+credentials:
+  usernames:
+    ikhyun0630:
+      name: 조익현
+      email: ikhyun0630@naver.com
+      password: $2b$12$szNWndWrJqNTRkC5pXaDc.ZJlKEYhkPFkdNA/RZfyBBUNyeoLarOm
+    abc123:
+      name: 조익현
+      email: a2
+      password: $2b$12$r8W4CoV5r.2TJuMWXhzS7.ypFOIPMbNK3gqtmLJIcgXkDp9CfgPS6
+    kim:
+      name: saehan
+      email: togks7@naver.com
+      password: $2b$12$zpUwborJ5KaqfaBDggjfVu0npwnQHSSPL25khusf1pMh0UZxiCtPm
+    togks7:
+      name: 김새한
+      email: togks120@naver.com
+      password: $2b$12$UE/uoxOF5YflxqmnC8bfV.1eOp4RxoeCrulzEdzzPoXIUssHKoviy
+cookie:
+  name: myapp_auth
+  key: CHANGE_THIS_TO_A_RANDOM_SECRET_KEY
+  expiry_days: 30
+preauthorized:
+  emails: []
