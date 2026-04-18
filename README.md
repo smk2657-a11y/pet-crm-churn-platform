@@ -169,8 +169,8 @@ streamlit run app.py
 모델 성능 고도화 (AutoML, Ensemble)
 SaaS 형태 서비스화
 실시간 데이터 연동
-👨‍💻 Author
 
+👨‍💻 Author
 김수민 (Data Analyst)
 Multicampus 8th Project
 
