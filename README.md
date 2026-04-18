@@ -1,205 +1,183 @@
-# 🐾 Pet CRM Churn Platform
+# 🐾 Pet Commerce CRM & Churn Prediction Platform
 
-AI 기반 펫커머스 고객 인사이트 분석 및 이탈 예측 CRM 플랫폼  
-👉 데이터 분석 → 이탈 예측 → CRM 액션까지 연결하는 자동화 솔루션
-
----
-
-## 🚀 프로젝트 개요
-
-본 프로젝트는 펫커머스 환경에서 발생하는 **고객 이탈 문제**를 해결하기 위해 개발되었습니다.
-
-기존 CRM 분석은  
-- 단순 RFM 점수 기반
-- 사후 분석 중심
-- 실무 활용 어려움  
-
-이라는 한계를 가지고 있습니다.
-
-👉 이를 해결하기 위해  
-**데이터 기반 고객 행동 분석 + 머신러닝 예측 + CRM 실행 연결 구조**를 설계했습니다. :contentReference[oaicite:0]{index=0}
+AI 기반 반려동물 커머스 고객 분석 및 이탈 예측 플랫폼입니다.  
+실제 커머스 데이터를 기반으로 고객 세그먼트, 이탈 위험, 재구매 주기, 운영 액션까지 **한 번에 도출하는 CRM 분석 도구**를 개발했습니다.
 
 ---
 
-## 🎯 문제 정의
+## 🚀 Overview
 
-펫커머스 판매자가 겪는 핵심 문제는 다음 3가지입니다.
+이 프로젝트는 단순한 분석이 아닌  
+👉 **"분석 → 인사이트 → 액션"까지 연결되는 실무형 플랫폼**을 목표로 합니다.
 
-- ❗ 매출 하락 원인 파악 어려움  
-- ❗ 고객 이탈 사전 감지 불가  
-- ❗ 엑셀 기반 수작업 데이터 관리 비효율  
-
-👉 특히 “이탈 이후 대응”은 이미 늦다는 문제가 존재합니다. :contentReference[oaicite:1]{index=1}
-
----
-
-## 💡 솔루션 개요
-
-본 플랫폼은 다음 3가지를 핵심으로 합니다:
-
-- 자동 데이터 통합 (컬럼 매핑)
-- 고객 행동 기반 분석 (RFM + 재구매)
-- 머신러닝 기반 이탈 예측
-
-👉 그리고 가장 중요한 것  
-**👉 분석 결과를 CRM 액션으로 연결**
-
----
-
-## 🔄 서비스 흐름
-CSV 업로드 → 컬럼 매핑 → 데이터 검증 → 분석/예측 → 액션 추천 → PDF 리포트
-
-👉 하나의 흐름으로 연결된 CRM 자동화 구조 구현 :contentReference[oaicite:2]{index=2}
-
----
-
-## ⚙️ 핵심 기능
-
-### 1️⃣ 데이터 자동 처리
-- CSV / XLSX 업로드
-- 자동 컬럼 매핑 (플랫폼 데이터 통합)
-- 데이터 품질 검증
-- 결측치 및 이상값 처리
-
----
-
-### 2️⃣ 고객 분석 (RFM)
-- Recency / Frequency / Monetary 기반 세그먼트
-- VIP / 이탈 위험 / 잠재 고객 분류
-
----
-
-### 3️⃣ 재구매 주기 분석 ⭐ 핵심
-- 카테고리별 재구매 주기 계산
-- 추천 마케팅 발송 시점 자동 도출
-- 실제 구매 행동 기반 CRM 전략
-
----
-
-### 4️⃣ 카테고리 이탈 분석 ⭐ 차별화
-- 전체 고객 이탈이 아닌
-👉 **“카테고리 단위 이탈” 분석**
-
-예:
-- “사료는 사는데 간식은 왜 안 사지?”
-
-👉 상품군 단위 운영 전략 가능
-
----
-
-### 5️⃣ 다반려 고객 분석
-- 구매 패턴 기반 고객 유형 추정
-- 교차판매 전략 도출
-
----
-
-### 6️⃣ 머신러닝 이탈 예측
-
-#### 📌 모델 구조
-- 3~6개월 단기 이탈 모델
-- 6~12개월 중기 이탈 모델
-- 카테고리 이탈 모델
-
-#### 📌 특징
-- Rolling Snapshot 기반 시계열 데이터 구성
-- Threshold 최적화 (Precision 중심)
-- 불균형 데이터 대응 평가
-
----
-
-### 7️⃣ CRM 액션 추천 ⭐ 핵심 차별화
-
-- 이탈 고객 사전 탐지
-- 재구매 타이밍 기반 마케팅 추천
-- 카테고리별 운영 전략 제공
-
-👉 “분석 → 실행”까지 연결된 구조
-
----
-
-### 8️⃣ 리포트 & 대시보드
-- KPI 기반 시각화
-- Plotly 대시보드
+### 핵심 기능
+- 고객 세그먼트 분석 (RFM 기반)
+- 이탈 고객 예측 (Machine Learning)
+- 카테고리별 이탈 분석
+- 재구매 주기 기반 CRM 액션 추천
+- 다반려 고객 추정
 - PDF 리포트 자동 생성
 
 ---
 
-## 🧠 머신러닝 설계
+## 🧠 Key Features
 
-### Feature Engineering
-- RFM 지표
-- 재구매 주기
-- 카테고리 구매 비중
-- 최근 행동 패턴 (Rolling Window)
+### 1. 데이터 통합 & 전처리
+- 다양한 커머스 데이터 구조 자동 컬럼 매핑
+- 데이터 품질 검증 및 정제
+- 실무 데이터 대응 (결측, 컬럼 불일치 등)
 
-### 학습 구조
-- 시계열 기반 데이터 분할
-- Train / Valid / Test 분리
-- Threshold 최적화
+### 2. 고객 분석
+- RFM 기반 고객 세그먼트 분류
+- VIP / 이탈 위험 / 휴면 고객 구분
+- 세그먼트별 매출 및 행동 분석
 
-### 평가 지표
-- ROC-AUC
-- PR-AUC
-- Precision / Recall / F1
+### 3. 펫커머스 특화 분석
+- 카테고리별 재구매 주기 분석
+- 카테고리 단위 이탈 탐지
+- 다반려 고객 추정 (구매 패턴 기반)
 
-👉 불균형 데이터 대응 중심 평가 구조 :contentReference[oaicite:3]{index=3}
+### 4. 머신러닝 이탈 예측
+- LightGBM 기반 모델
+- 3~6개월 / 6~12개월 이중 모델 구조
+- Precision 기반 threshold 최적화
+- ROC-AUC / PR-AUC / F1 등 다중 지표 평가
 
----
+### 5. CRM 액션 추천
+- 재구매 시점 기반 알림 추천
+- 카테고리별 맞춤 마케팅 전략
+- 고객 위험도 기반 우선순위 설정
 
-## 🏗️ 시스템 아키텍처
-User → Streamlit UI → Python 분석 로직 → ML 예측 → CRM 액션 → 저장
-
-
-### 기술 스택
-- Frontend: Streamlit
-- Backend: Python
-- ML: Scikit-learn, LightGBM
-- Data: Pandas, NumPy
-- Storage: SQLite, JSON
-- Auth: bcrypt, JWT
-
-👉 전체 분석 → 예측 → 저장까지 하나의 흐름으로 연결 :contentReference[oaicite:4]{index=4}
+### 6. 리포트 & 시각화
+- KPI 대시보드
+- Executive Summary 제공
+- PDF 다운로드 지원
 
 ---
 
-## 📊 프로젝트 성과
+## 🖥️ Demo Screenshots
 
-- 이탈 고객 사전 탐지 가능
-- 재구매 타이밍 자동 추천
-- 카테고리 단위 운영 전략 제공
-- CRM 자동화 구조 구현
+### Main Dashboard
+![Main](./images/main.png)
 
-👉 단순 분석이 아닌 “실행 가능한 인사이트 제공” :contentReference[oaicite:5]{index=5}
+### KPI Summary
+![KPI](./images/kpi.png)
 
----
+### Segment Analysis
+![Segment](./images/segment.png)
 
-## 🔥 차별화 포인트
+### Category Analysis
+![Category](./images/category.png)
 
-- 펫커머스 특화 분석 구조
-- 카테고리 이탈 분석 (기존 대비 차별)
-- 재구매 주기 기반 CRM 액션
-- 데이터 자동 매핑 시스템
-- 분석 → 예측 → 실행 연결
+### Repurchase Cycle
+![Cycle](./images/cycle.png)
 
----
+### Churn Prediction
+![Churn](./images/churn.png)
 
-## 📈 향후 개선 방향
+### Refund Analysis
+![Refund](./images/refund.png)
 
-- 다양한 데이터셋 기반 모델 검증
-- 실시간 데이터 처리 구조 확장
-- 자동 캠페인 연동
-- SaaS 서비스 고도화
+### Inventory Analysis
+![Inventory](./images/inventory.png)
 
 ---
 
-## 👨‍💻 개발자
+## 🏗️ System Architecture
 
-- 김수민
-- 조익현
+- **Frontend**: Streamlit (Custom UI)
+- **Backend**: Python
+- **ML Model**: LightGBM / Scikit-learn
+- **Data Processing**: Pandas / NumPy
+- **Visualization**: Plotly / Matplotlib
+- **Database**: SQLite
+- **Auth**: bcrypt / JWT
 
 ---
 
-## 📌 한 줄 요약
+## ⚙️ Tech Stack
 
-> 펫커머스 고객 데이터를 기반으로  
-> 이탈을 예측하고, 실행 가능한 CRM 전략까지 자동으로 제안하는 플랫폼
+| Category | Tools |
+|--------|------|
+| Language | Python |
+| Data | Pandas, NumPy |
+| ML | Scikit-learn, LightGBM |
+| Visualization | Plotly, Matplotlib |
+| Web | Streamlit |
+| DB | SQLite |
+| Auth | bcrypt, JWT |
+
+---
+
+## 📊 Model Strategy
+
+- 이탈 예측은 **불균형 데이터 문제**를 고려하여 설계
+- 주요 평가 지표:
+  - ROC-AUC (전체 구분력)
+  - PR-AUC (소수 클래스 탐지력)
+  - Precision (오탐 방지)
+  - Recall (이탈 탐지율)
+  - F1 Score (균형)
+
+👉 실무 적용을 위해 **Precision 중심 threshold tuning 적용**
+
+---
+
+## 💡 Differentiation
+
+기존 CRM 분석 도구와 차별점:
+
+- 단순 분석 → ❌  
+- **분석 + 액션 추천 → ✅**
+
+- 전체 이탈 분석 → ❌  
+- **카테고리 단위 이탈 분석 → ✅**
+
+- 일반 커머스 → ❌  
+- **펫커머스 도메인 특화 → ✅**
+
+---
+
+## 📌 Key Insight
+
+- 고객 이탈은 단순히 "전체 이탈"이 아니라  
+  👉 **카테고리 단위 이탈**에서 먼저 발생
+- 재구매 주기는 CRM 타이밍의 핵심 지표
+- 다반려 고객은 교차 판매의 핵심 타겟
+
+---
+
+## 🧩 Project Structure
+.
+├── images/
+├── models/
+├── src/
+├── static/
+├── templates/
+├── app.py
+├── train_model.py
+├── requirements.txt
+└── README.md
+
+
+---
+
+## ▶️ How to Run
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+
+📈 Future Work
+다양한 커머스 플랫폼 데이터 확장
+모델 성능 고도화 (AutoML, Ensemble)
+SaaS 형태 서비스화
+실시간 데이터 연동
+
+👨‍💻 Author
+김수민 (Data Analyst)
+Multicampus 8th Project
+
+⭐ Conclusion
+이 프로젝트는 단순한 데이터 분석을 넘어
+👉 실제 비즈니스 의사결정에 활용 가능한 CRM 플랫폼 구현을 목표로 합니다.
