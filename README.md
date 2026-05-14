@@ -160,21 +160,28 @@ AI 기반 반려동물 커머스 고객 분석 및 이탈 예측 플랫폼입니
 ├── train_model.py
 ├── requirements.txt
 └── README.md
+```
 
-▶️ How to Run
+## ▶️ How to Run
+
+```bash
 pip install -r requirements.txt
 streamlit run app.py
-📈 Future Work
-다양한 커머스 플랫폼 데이터 확장
-모델 성능 고도화 (AutoML, Ensemble)
-SaaS 형태 서비스화
-실시간 데이터 연동
+```
 
-👨‍💻 Author
-김수민 (Data Analyst)
+## 📈 Future Work
+
+- 다양한 커머스 플랫폼 데이터 확장
+- 모델 성능 고도화 (AutoML, Ensemble)
+- SaaS 형태 서비스화
+- 실시간 데이터 연동
+
+## 👨‍💻 Author
+
+김수민 (Data Analyst)  
 Multicampus 8th Project
 
-⭐ Conclusion
+## ⭐ Conclusion
 
-이 프로젝트는 단순한 데이터 분석을 넘어
+이 프로젝트는 단순한 데이터 분석을 넘어  
 👉 실제 비즈니스 의사결정에 활용 가능한 CRM 플랫폼 구현을 목표로 합니다.
